@@ -1,0 +1,231 @@
+{
+  "@@locale": "en",
+  "appTitle": "MZFlood",
+  "@appTitle": {
+    "description": "App Title"
+  },
+  "authorName": "Maxim Zhuravlev (MxZhur)",
+  "@authorName": {
+    "description": ""
+  },
+  "buttonPlay": "Play",
+  "@buttonPlay": {
+    "description": ""
+  },
+  "titleSettings": "Settings",
+  "@titleSettings": {
+    "description": ""
+  },
+  "messageVictory": "Well Done!",
+  "@messageVictory": {
+    "description": ""
+  },
+  "messageDefeat": "No more moves",
+  "@messageDefeat": {
+    "description": ""
+  },
+  "buttonNewGame": "New Game",
+  "@buttonNewGame": {
+    "description": ""
+  },
+  "buttonRestartBoard": "Restart Board",
+  "@buttonRestartBoard": {
+    "description": ""
+  },
+  "debug": "Debug",
+  "@debug": {
+    "description": ""
+  },
+  "debugSetVictory": "Instant Victory",
+  "@debugSetVictory": {
+    "description": ""
+  },
+  "debugSetDefeat": "Instant Defeat",
+  "@debugSetDefeat": {
+    "description": ""
+  },
+  "debugStepForward": "Fill Step Forward",
+  "@debugStepForward": {
+    "description": ""
+  },
+  "messageNewGameStarted": "Started a new Board.",
+  "@messageNewGameStarted": {
+    "description": ""
+  },
+  "messageBoardRestarted": "Board reverted.",
+  "@messageBoardRestarted": {
+    "description": ""
+  },
+  "infoAppDescriptionStart": "A nicer, smoother implementation of the",
+  "@infoAppDescriptionStart": {
+    "description": ""
+  },
+  "infoAppBasedOn": "Flood game from Simon Tatham's Portable Puzzle Collection",
+  "@infoAppBasedOn": {
+    "description": ""
+  },
+  "infoGameRules": "In Flood, you play on a randomly colored grid or cells.\n\nEach turn, pick a color you want to flood-fill the area.\n\nThe goal is to make the entire field single-color within a limited amount of moves.\n\nGood luck!",
+  "@infoGameRules": {
+    "description": ""
+  },
+  "poweredByFlutter": "Powered by Flutter",
+  "@poweredByFlutter": {
+    "description": ""
+  },
+  "settingsSectionUserInterface": "User Interface",
+  "@settingsSectionUserInterface": {
+    "description": ""
+  },
+  "settingsSectionColorPalette": "Color Palette",
+  "@settingsSectionColorPalette": {
+    "description": ""
+  },
+  "settingsSectionGame": "Game",
+  "@settingsSectionGame": {
+    "description": ""
+  },
+  "settingsSectionInformation": "Information",
+  "@settingsSectionInformation": {
+    "description": ""
+  },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": ""
+  },
+  "settingsLanguageSystem": "System",
+  "@settingsLanguageSystem": {
+    "description": ""
+  },
+  "settingsThemeMode": "Light/Dark mode",
+  "@settingsThemeMode": {
+    "description": ""
+  },
+  "settingsThemeModeSystem": "System",
+  "@settingsThemeModeSystem": {
+    "description": ""
+  },
+  "settingsThemeModeLight": "Light",
+  "@settingsThemeModeLight": {
+    "description": ""
+  },
+  "settingsThemeModeDark": "Dark",
+  "@settingsThemeModeDark": {
+    "description": ""
+  },
+  "settingsColorAccessabilityMode": "Mark cells with numbers",
+  "@settingsColorAccessabilityMode": {
+    "description": ""
+  },
+  "settingsShowColorPanel": "Show Color Selection Panel",
+  "@settingsShowColorPanel": {
+    "description": ""
+  },
+  "settingsShowColorPanelSubtitle": "You can always tap cells on the board to flood-fill with their color.",
+  "@settingsShowColorPanelSubtitle": {
+    "description": ""
+  },
+  "settingsMonochromeMode": "Monochrome Mode",
+  "@settingsMonochromeMode": {
+    "description": ""
+  },
+  "settingsMonochromeSeedColor": "Monochrome Tint Color",
+  "@settingsMonochromeSeedColor": {
+    "description": ""
+  },
+  "settingsTitlePaletteSaturation": "Saturation Modifier",
+  "@settingsTitlePaletteSaturation": {
+    "description": ""
+  },
+  "settingsPaletteSaturationGrayscale": "Grayscale",
+  "@settingsPaletteSaturationGrayscale": {
+    "description": ""
+  },
+  "settingsPaletteSaturationColorful": "More Colorful",
+  "@settingsPaletteSaturationColorful": {
+    "description": ""
+  },
+  "settingsTitleBrightnessContrast": "Brightness / Contrast",
+  "@settingsTitleBrightnessContrast": {
+    "description": ""
+  },
+  "settingsBrightnessContrastDarker": "Darker",
+  "@settingsBrightnessContrastDarker": {
+    "description": ""
+  },
+  "settingsBrightnessContrastLighter": "Lighter",
+  "@settingsBrightnessContrastLighter": {
+    "description": ""
+  },
+  "titlePalettePreview": "Palette Preview",
+  "@titlePalettePreview": {
+    "description": ""
+  },
+  "messageSettingsNewGameOnly": "Changes of game settings only apply after you start a new game.\nThe current game board will still use the old game settings.",
+  "@messageSettingsNewGameOnly": {
+    "description": ""
+  },
+  "settingsBoardSize": "Grid Size",
+  "@settingsBoardSize": {
+    "description": ""
+  },
+  "width": "Width",
+  "@width": {
+    "description": ""
+  },
+  "height": "Height",
+  "@height": {
+    "description": ""
+  },
+  "widthShort": "W",
+  "@widthShort": {
+    "description": ""
+  },
+  "heightShort": "H",
+  "@heightShort": {
+    "description": ""
+  },
+  "settingsFillSpeed": "Flood-Fill Effect Speed",
+  "@settingsFillSpeed": {
+    "description": ""
+  },
+  "settingsFillSpeedFaster": "Faster",
+  "@settingsFillSpeedFaster": {
+    "description": ""
+  },
+  "settingsFillSpeedSlower": "Slower",
+  "@settingsFillSpeedSlower": {
+    "description": ""
+  },
+  "settingsColorsAmount": "Amount of Colors",
+  "@settingsColorsAmount": {
+    "description": ""
+  },
+  "settingsStartingPosition": "Filling Point Position",
+  "@settingsStartingPosition": {
+    "description": ""
+  },
+  "settingsStartingPositionRandom": "Random",
+  "@settingsStartingPositionRandom": {
+    "description": ""
+  },
+  "buttonResetSettings": "Reset Settings",
+  "@buttonResetSettings": {
+    "description": ""
+  },
+  "messageWarningYouSure": "Are you sure?",
+  "@messageWarningYouSure": {
+    "description": ""
+  },
+  "messageSettingsWereReset": "Settings have been reset.",
+  "@messageSettingsWereReset": {
+    "description": ""
+  },
+  "yes": "Yes",
+  "@yes": {
+    "description": ""
+  },
+  "no": "No",
+  "@no": {
+    "description": ""
+  }
+}

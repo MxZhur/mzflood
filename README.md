@@ -23,6 +23,12 @@ Powered by [Flutter](https://flutter.dev).
 flutter gen-l10n
 ```
 
+### Generate App Name Localizations
+
+```bash
+dart run flutter_app_name_localization
+```
+
 ### Generate Splash Screen
 
 ```bash

@@ -1,6 +1,6 @@
 name: mzflood
 description: "A nicer, smoother implementation of the Flood Fill puzzle game from Simon Tatham's Portable Puzzle Collection"
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -36,7 +36,8 @@ flutter:
   uses-material-design: true
 
   assets:
-      - assets/images/
+    - assets/images/
+    - assets/icon.png
 
 flutter_app_name_localization:
   default: "MZFlood"
@@ -46,7 +47,6 @@ flutter_app_name_localization:
 
 flutter_native_splash:
   android: true
-  android_screen_orientation: portrait
 
   ios: false
   web: false

@@ -53,6 +53,12 @@ static void my_application_activate(GApplication* application) {
     gtk_window_set_title(window, "MZFlood");
   }
 
+  if (g_file_test("assets", G_FILE_TEST_IS_DIR)) {
+      gtk_window_set_icon_from_file(window, "assets/icon.png", NULL); // For debug mode
+  } else {
+      gtk_window_set_icon_from_file(window, "data/flutter_assets/assets/icon.png", NULL); // For release mode
+  }
+
   gtk_window_set_default_size(window, 720, 720);
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();

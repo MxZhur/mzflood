@@ -24,8 +24,6 @@ class FloodPuzzleApp extends StatelessWidget {
 
   // TODO: Review, decompose, and refactor the app's entire code
 
-  // TODO: Icon for Linux
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

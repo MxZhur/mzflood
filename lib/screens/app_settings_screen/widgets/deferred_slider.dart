@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-enum DeferredSliderType { singleValue, valueRange }
-
 class DeferredSlider extends StatefulWidget {
   final double? currentValue;
   final RangeValues? currentValueRange;
@@ -17,6 +15,7 @@ class DeferredSlider extends StatefulWidget {
 
   final String? labelLeft;
   final String? labelRight;
+
   final void Function()? onResetValue;
   final void Function()? onResetRange;
 
@@ -42,18 +41,94 @@ class DeferredSlider extends StatefulWidget {
   State<DeferredSlider> createState() => _DeferredSliderState();
 }
 
+enum DeferredSliderType { singleValue, valueRange }
+
 class _DeferredSliderState extends State<DeferredSlider> {
+  static const sliderPadding = EdgeInsets.only(left: 16, right: 16, top: 8);
+  static const fallbackLabelFontSize = 10;
+
   late double temporaryValue;
+
   late RangeValues temporaryRangeValue;
 
   @override
-  void initState() {
-    super.initState();
-    if (widget.sliderType == DeferredSliderType.singleValue) {
-      temporaryValue = widget.currentValue!;
-    } else if (widget.sliderType == DeferredSliderType.valueRange) {
-      temporaryRangeValue = widget.currentValueRange!;
-    }
+  Widget build(BuildContext context) {
+    final edgeLabelStyle = TextTheme.of(context).labelMedium;
+
+    return Column(
+      children: [
+        Builder(
+          builder: (_) => switch (widget.sliderType) {
+            DeferredSliderType.singleValue => Slider(
+              value: temporaryValue,
+              min: widget.min,
+              max: widget.max,
+              divisions: widget.divisions,
+              onChangeEnd: widget.onChangedValue,
+              onChanged: (value) {
+                setState(() {
+                  temporaryValue = value;
+                });
+              },
+              padding: sliderPadding,
+              label: widget.showThumbLabel
+                  ? (widget.roundThumbLabelValue
+                            ? temporaryValue.round()
+                            : temporaryValue)
+                        .toString()
+                  : null,
+            ),
+
+            DeferredSliderType.valueRange => RangeSlider(
+              values: temporaryRangeValue,
+              min: widget.min,
+              max: widget.max,
+              divisions: widget.divisions,
+              onChangeEnd: widget.onChangedRange,
+              onChanged: (value) {
+                setState(() {
+                  temporaryRangeValue = value;
+                });
+              },
+              padding: sliderPadding,
+              labels: widget.showThumbLabel
+                  ? RangeLabels(
+                      (widget.roundThumbLabelValue
+                              ? temporaryRangeValue.start.round()
+                              : temporaryRangeValue.start)
+                          .toString(),
+                      (widget.roundThumbLabelValue
+                              ? temporaryRangeValue.end.round()
+                              : temporaryRangeValue.end)
+                          .toString(),
+                    )
+                  : null,
+            ),
+          },
+        ),
+        SizedBox(
+          height: (edgeLabelStyle?.fontSize ?? fallbackLabelFontSize) * 1.4,
+          child: Stack(
+            alignment: Alignment.center,
+            fit: StackFit.expand,
+            children: [
+              if (widget.labelLeft != null)
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  child: Text(widget.labelLeft!, style: edgeLabelStyle),
+                ),
+              if (widget.labelRight != null)
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Text(widget.labelRight!, style: edgeLabelStyle),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -74,90 +149,12 @@ class _DeferredSliderState extends State<DeferredSlider> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Builder(
-          builder: (context) {
-            if (widget.sliderType == DeferredSliderType.singleValue) {
-              return Slider(
-                value: temporaryValue,
-                min: widget.min,
-                max: widget.max,
-                divisions: widget.divisions,
-                onChangeEnd: widget.onChangedValue,
-                onChanged: (value) {
-                  setState(() {
-                    temporaryValue = value;
-                  });
-                },
-                padding: EdgeInsets.only(left: 16, right: 16, top: 8),
-                label: widget.showThumbLabel
-                    ? (widget.roundThumbLabelValue
-                              ? temporaryValue.round()
-                              : temporaryValue)
-                          .toString()
-                    : null,
-              );
-            } else if (widget.sliderType == DeferredSliderType.valueRange) {
-              return RangeSlider(
-                values: temporaryRangeValue,
-                min: widget.min,
-                max: widget.max,
-                divisions: widget.divisions,
-                onChangeEnd: widget.onChangedRange,
-                onChanged: (value) {
-                  setState(() {
-                    temporaryRangeValue = value;
-                  });
-                },
-                padding: EdgeInsets.only(left: 16, right: 16, top: 8),
-                labels: widget.showThumbLabel
-                    ? RangeLabels(
-                        (widget.roundThumbLabelValue
-                                ? temporaryRangeValue.start.round()
-                                : temporaryRangeValue.start)
-                            .toString(),
-                        (widget.roundThumbLabelValue
-                                ? temporaryRangeValue.end.round()
-                                : temporaryRangeValue.end)
-                            .toString(),
-                      )
-                    : null,
-              );
-            }
-
-            return Container();
-          },
-        ),
-        SizedBox(
-          height: (TextTheme.of(context).labelMedium?.fontSize ?? 10) * 1.4,
-          child: Stack(
-            alignment: Alignment.center,
-            fit: StackFit.expand,
-            children: [
-              if (widget.labelLeft != null)
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  child: Text(
-                    widget.labelLeft!,
-                    style: TextTheme.of(context).labelMedium,
-                  ),
-                ),
-              if (widget.labelRight != null)
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Text(
-                    widget.labelRight!,
-                    style: TextTheme.of(context).labelMedium,
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ],
-    );
+  void initState() {
+    super.initState();
+    if (widget.sliderType == DeferredSliderType.singleValue) {
+      temporaryValue = widget.currentValue!;
+    } else if (widget.sliderType == DeferredSliderType.valueRange) {
+      temporaryRangeValue = widget.currentValueRange!;
+    }
   }
 }

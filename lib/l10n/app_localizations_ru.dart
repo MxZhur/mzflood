@@ -99,10 +99,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsColorAccessabilityMode => 'Отмечать клетки числами';
 
   @override
-  String get settingsShowColorPanel => 'Показывать панель выбора цвета';
+  String get settingsIsColorPanelVisible => 'Показывать панель выбора цвета';
 
   @override
-  String get settingsShowColorPanelSubtitle =>
+  String get settingsIsColorPanelVisibleSubtitle =>
       'Вы всегда можете нажимать на клетки на игровом поле, чтобы делать заливку их цветом.';
 
   @override

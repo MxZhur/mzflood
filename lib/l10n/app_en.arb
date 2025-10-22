@@ -116,12 +116,12 @@
   "@settingsColorAccessabilityMode": {
     "description": ""
   },
-  "settingsShowColorPanel": "Show Color Selection Panel",
-  "@settingsShowColorPanel": {
+  "settingsIsColorPanelVisible": "Show Color Selection Panel",
+  "@settingsIsColorPanelVisible": {
     "description": ""
   },
-  "settingsShowColorPanelSubtitle": "You can always tap cells on the board to flood-fill with their color.",
-  "@settingsShowColorPanelSubtitle": {
+  "settingsIsColorPanelVisibleSubtitle": "You can always tap cells on the board to flood-fill with their color.",
+  "@settingsIsColorPanelVisibleSubtitle": {
     "description": ""
   },
   "settingsMonochromeMode": "Monochrome Mode",

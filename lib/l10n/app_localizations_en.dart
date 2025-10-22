@@ -99,10 +99,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsColorAccessabilityMode => 'Mark cells with numbers';
 
   @override
-  String get settingsShowColorPanel => 'Show Color Selection Panel';
+  String get settingsIsColorPanelVisible => 'Show Color Selection Panel';
 
   @override
-  String get settingsShowColorPanelSubtitle =>
+  String get settingsIsColorPanelVisibleSubtitle =>
       'You can always tap cells on the board to flood-fill with their color.';
 
   @override

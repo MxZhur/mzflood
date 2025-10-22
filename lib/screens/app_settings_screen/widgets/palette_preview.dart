@@ -1,81 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:mzflood/constants/game_grid_palette.dart';
-import 'package:mzflood/l10n/app_localizations.dart';
-import 'package:mzflood/screens/game_screen/widgets/cell_accessability_mark.dart';
+
+import '/domain/game_grid.dart';
+import '/widgets/cell_accessability_mark.dart';
 
 class PalettePreview extends StatelessWidget {
+  static const cornerRadius = Radius.circular(12);
+
+  static const leftEdgeRadius = BorderRadius.horizontal(left: cornerRadius);
+  static const rightEdgeRadius = BorderRadius.horizontal(right: cornerRadius);
+  final List<Color> palette;
+
+  final bool colorAccessabilityMode;
+  final double maxWidth;
+
   const PalettePreview({
     super.key,
     required this.palette,
     this.colorAccessabilityMode = false,
+    this.maxWidth = double.infinity,
   });
 
-  final Palette palette;
+  @override
+  Widget build(BuildContext context) => ConstrainedBox(
+    constraints: BoxConstraints(maxWidth: maxWidth),
+    child: Row(
+      spacing: 4,
+      children: List<Widget>.generate(
+        palette.length,
+        (colorIndex) => Expanded(
+          child: PalettePreviewSwatch(
+            color: palette[colorIndex],
+            colorIndex: colorIndex,
+            borderRadius: colorIndex == 0
+                ? leftEdgeRadius
+                : colorIndex == palette.length - 1
+                ? rightEdgeRadius
+                : BorderRadius.zero,
+            colorAccessabilityMode: colorAccessabilityMode,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+class PalettePreviewSwatch extends StatelessWidget {
+  final Color color;
+  final ColorIndex colorIndex;
+  final BorderRadius borderRadius;
   final bool colorAccessabilityMode;
 
+  const PalettePreviewSwatch({
+    super.key,
+    required this.color,
+    required this.colorIndex,
+    required this.borderRadius,
+    required this.colorAccessabilityMode,
+  });
+
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      spacing: 8,
-      children: [
-        Text(
-          AppLocalizations.of(context)!.titlePalettePreview,
-          style: TextTheme.of(context).labelMedium,
-        ),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            Orientation orientation = MediaQuery.orientationOf(context);
-
-            return Row(
-              children: [
-                if (orientation == Orientation.landscape) Spacer(),
-
-                Flexible(
-                  flex: 4,
-                  child: Row(
-                    spacing: 4,
-                    children: List<Widget>.generate(
-                      palette.length,
-                      (colorIndex) => Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: palette[colorIndex],
-                            borderRadius: BorderRadius.only(
-                              topLeft: colorIndex == 0
-                                  ? Radius.circular(12)
-                                  : Radius.zero,
-                              bottomLeft: colorIndex == 0
-                                  ? Radius.circular(12)
-                                  : Radius.zero,
-                              topRight: colorIndex == palette.length - 1
-                                  ? Radius.circular(12)
-                                  : Radius.zero,
-                              bottomRight: colorIndex == palette.length - 1
-                                  ? Radius.circular(12)
-                                  : Radius.zero,
-                            ),
-                          ),
-                          height: 50,
-                          child: FittedBox(
-                            child: colorAccessabilityMode
-                                ? CellAccessabilityMark(
-                                    colorIndex: colorIndex,
-                                    backgroundColor: palette[colorIndex],
-                                  )
-                                : null,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                if (orientation == Orientation.landscape) Spacer(),
-              ],
-            );
-          },
-        ),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => Container(
+    decoration: BoxDecoration(color: color, borderRadius: borderRadius),
+    height: 50,
+    child: FittedBox(
+      child: colorAccessabilityMode
+          ? CellAccessabilityMark(
+              colorIndex: colorIndex,
+              backgroundColor: color,
+            )
+          : null,
+    ),
+  );
 }

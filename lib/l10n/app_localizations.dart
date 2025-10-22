@@ -276,13 +276,13 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Show Color Selection Panel'**
-  String get settingsShowColorPanel;
+  String get settingsIsColorPanelVisible;
 
   ///
   ///
   /// In en, this message translates to:
   /// **'You can always tap cells on the board to flood-fill with their color.'**
-  String get settingsShowColorPanelSubtitle;
+  String get settingsIsColorPanelVisibleSubtitle;
 
   ///
   ///

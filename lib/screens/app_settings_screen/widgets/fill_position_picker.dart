@@ -1,9 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:mzflood/domain/game_settings.dart';
-import 'package:mzflood/l10n/app_localizations.dart';
+
+import '/domain/game_settings.dart';
+import '/l10n/app_localizations.dart';
 
 class FillPositionPicker extends StatelessWidget {
+  static const double cellSpacing = 4;
+  static const typeGrid = <List<StartingPositionType>>[
+    [
+      StartingPositionType.topLeft,
+      StartingPositionType.topCenter,
+      StartingPositionType.topRight,
+    ],
+    [
+      StartingPositionType.middleLeft,
+      StartingPositionType.center,
+      StartingPositionType.middleRight,
+    ],
+    [
+      StartingPositionType.bottomLeft,
+      StartingPositionType.bottomCenter,
+      StartingPositionType.bottomRight,
+    ],
+  ];
+
   final StartingPositionType currentValue;
+
   final void Function(StartingPositionType newValue) onChanged;
 
   const FillPositionPicker({
@@ -12,27 +33,9 @@ class FillPositionPicker extends StatelessWidget {
     required this.onChanged,
   });
 
-  static const double cellSpacing = 4;
-
   @override
   Widget build(BuildContext context) {
-    List<List<StartingPositionType>> typeGrid = [
-      [
-        StartingPositionType.topLeft,
-        StartingPositionType.topCenter,
-        StartingPositionType.topRight,
-      ],
-      [
-        StartingPositionType.middleLeft,
-        StartingPositionType.center,
-        StartingPositionType.middleRight,
-      ],
-      [
-        StartingPositionType.bottomLeft,
-        StartingPositionType.bottomCenter,
-        StartingPositionType.bottomRight,
-      ],
-    ];
+    final i18n = AppLocalizations.of(context)!;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -41,54 +44,51 @@ class FillPositionPicker extends StatelessWidget {
       children: [
         Column(
           spacing: cellSpacing,
-          children: typeGrid
-              .map<Widget>(
-                (row) => Row(
-                  spacing: cellSpacing,
-                  children: row
-                      .map<Widget>(
-                        (tileType) => FillPositionPickerTile(
-                          tileType: tileType,
-                          isSelected: currentValue == tileType,
-                          onPressed: onChanged,
-                        ),
-                      )
-                      .toList(),
-                ),
-              )
-              .toList(),
+          children: [
+            for (final row in typeGrid)
+              Row(
+                spacing: cellSpacing,
+                children: [
+                  for (final tileType in row)
+                    FillPositionPickerButton(
+                      tileType: tileType,
+                      isSelected: currentValue == tileType,
+                      onPressed: onChanged,
+                    ),
+                ],
+              ),
+          ],
         ),
         Column(
           spacing: 2,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FillPositionPickerTile(
+            FillPositionPickerButton(
               tileType: StartingPositionType.random,
               isSelected: currentValue == StartingPositionType.random,
               onPressed: onChanged,
             ),
             Text(
-              AppLocalizations.of(context)!.settingsStartingPositionRandom,
+              i18n.settingsStartingPositionRandom,
               style: Theme.of(context).textTheme.labelSmall,
             ),
           ],
-          //  settingsStartingPositionRandom
         ),
       ],
     );
   }
 }
 
-class FillPositionPickerTile extends StatelessWidget {
+class FillPositionPickerButton extends StatelessWidget {
+  static const double cellWidth = 50;
+  static const Radius cellBorderRadius = Radius.circular(16);
+
   final StartingPositionType tileType;
   final bool isSelected;
   final void Function(StartingPositionType tileType) onPressed;
 
-  static const double cellWidth = 50;
-  static const Radius cellBorderRadius = Radius.circular(16);
-
-  const FillPositionPickerTile({
+  const FillPositionPickerButton({
     super.key,
     required this.tileType,
     required this.isSelected,
@@ -97,43 +97,41 @@ class FillPositionPickerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BorderRadius borderRadius;
+    final borderRadius = switch (tileType) {
+      StartingPositionType.topLeft => const BorderRadius.only(
+        topLeft: cellBorderRadius,
+      ),
+      StartingPositionType.topRight => const BorderRadius.only(
+        topRight: cellBorderRadius,
+      ),
+      StartingPositionType.bottomRight => const BorderRadius.only(
+        bottomRight: cellBorderRadius,
+      ),
+      StartingPositionType.bottomLeft => const BorderRadius.only(
+        bottomLeft: cellBorderRadius,
+      ),
+      StartingPositionType.random => const BorderRadius.all(cellBorderRadius),
+      _ => BorderRadius.zero,
+    };
 
-    switch (tileType) {
-      case StartingPositionType.topLeft:
-        borderRadius = BorderRadius.only(topLeft: cellBorderRadius);
-      case StartingPositionType.topRight:
-        borderRadius = BorderRadius.only(topRight: cellBorderRadius);
-        break;
-      case StartingPositionType.bottomRight:
-        borderRadius = BorderRadius.only(bottomRight: cellBorderRadius);
-        break;
-      case StartingPositionType.bottomLeft:
-        borderRadius = BorderRadius.only(bottomLeft: cellBorderRadius);
-        break;
-      case StartingPositionType.random:
-        borderRadius = BorderRadius.all(cellBorderRadius);
-        break;
-      default:
-        borderRadius = BorderRadius.zero;
-        break;
-    }
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Material(
-      color: isSelected
-          ? Theme.of(context).colorScheme.primaryContainer
-          : Theme.of(context).colorScheme.onPrimary,
+      color: isSelected ? colorScheme.primaryContainer : colorScheme.onPrimary,
       borderRadius: borderRadius,
       elevation: 5,
+      type: MaterialType.button,
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
-        child: SizedBox(
+        onTap: isSelected ? null : () => onPressed(tileType),
+        child: Container(
           height: cellWidth,
           width: cellWidth,
+          alignment: Alignment.center,
           child: isSelected
-              ? Center(child: Icon(Icons.format_color_fill, size: cellWidth * 0.6))
+              ? const Icon(Icons.format_color_fill, size: cellWidth * 0.6)
               : null,
         ),
-        onTap: () => onPressed(tileType),
       ),
     );
   }

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mzflood/extensions/color_extension.dart';
+
+import '/domain/game_grid.dart';
+import '/extensions/color_extension.dart';
 
 class CellAccessabilityMark extends StatelessWidget {
+  final ColorIndex colorIndex;
+
+  final Color? backgroundColor;
+  final double? fontSize;
+
   const CellAccessabilityMark({
     super.key,
     required this.colorIndex,
@@ -9,13 +16,11 @@ class CellAccessabilityMark extends StatelessWidget {
     this.fontSize,
   });
 
-  final int colorIndex;
-  final Color? backgroundColor;
-  final double? fontSize;
-
   @override
   Widget build(BuildContext context) {
-    final Color? textColor = backgroundColor != null ? (backgroundColor!.isDark ? Colors.white : Colors.black) : null;
+    final textColor = backgroundColor != null
+        ? (backgroundColor!.isDark ? Colors.white : Colors.black)
+        : null;
 
     return Text(
       (colorIndex + 1).toString(),

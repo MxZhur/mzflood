@@ -1,0 +1,21 @@
+display_name: MZFlood
+package_name: com.mxzhur.floodpuzzle
+maintainer:
+  name: MxZhur
+  email: mxzhur@yandex.ru
+priority: optional
+section: x11
+installed_size: 51766
+essential: false
+icon: assets/icon.png
+
+keywords:
+  - Flood
+  - Fill
+  - Puzzle
+  - Game
+
+generic_name: Flood Fill puzzle game
+
+categories:
+  - Game

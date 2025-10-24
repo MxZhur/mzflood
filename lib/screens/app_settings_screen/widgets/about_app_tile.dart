@@ -14,10 +14,9 @@ class AboutAppTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
 
-    final linkStyle = TextStyle(
-      color: Theme.of(context).colorScheme.primary,
-      decoration: TextDecoration.underline,
-    );
+    final dialogBodyTextStyle = Theme.of(context).textTheme.bodyMedium;
+
+    final linkStyle = TextStyle(color: Theme.of(context).colorScheme.primary);
 
     return FutureBuilder<PackageInfo>(
       future: PackageInfo.fromPlatform(),
@@ -35,6 +34,7 @@ class AboutAppTile extends StatelessWidget {
           const SizedBox(height: 18),
           RichText(
             text: TextSpan(
+              style: dialogBodyTextStyle,
               children: [
                 TextSpan(text: i18n.infoAppDescriptionStart),
                 TextSpan(text: ' '),
@@ -48,26 +48,23 @@ class AboutAppTile extends StatelessWidget {
                               await launchUrl(Uri.parse(originalGameUrl)),
                         ),
                 ),
+                TextSpan(text: '\n' * 2),
+                TextSpan(text: i18n.infoGameRules),
+                TextSpan(text: '\n' * 3),
+                TextSpan(
+                  text: i18n.poweredByFlutter,
+                  style: linkStyle,
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async =>
+                        await canLaunchUrl(
+                          Uri.parse(flutterOfficialWebsiteUrl),
+                        ).then(
+                          (value) async => await launchUrl(
+                            Uri.parse(flutterOfficialWebsiteUrl),
+                          ),
+                        ),
+                ),
               ],
-            ),
-          ),
-
-          const SizedBox(height: 18),
-          RichText(text: TextSpan(text: i18n.infoGameRules)),
-
-          const SizedBox(height: 24),
-          RichText(
-            text: TextSpan(
-              text: i18n.poweredByFlutter,
-              style: linkStyle,
-              recognizer: TapGestureRecognizer()
-                ..onTap = () async =>
-                    await canLaunchUrl(
-                      Uri.parse(flutterOfficialWebsiteUrl),
-                    ).then(
-                      (value) async =>
-                          await launchUrl(Uri.parse(flutterOfficialWebsiteUrl)),
-                    ),
             ),
           ),
         ];
